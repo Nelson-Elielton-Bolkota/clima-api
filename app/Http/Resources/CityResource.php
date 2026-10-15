@@ -14,6 +14,15 @@ class CityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'cidade' => $this->name,
+            'uf' => strtoupper($this->state),
+            'coordenadas' => [
+                'lat' => (float) $this->latitude,
+                'lon' => (float) $this->longitude,
+            ],
+            'cadastrado_em' => $this->created_at?->format('d/m/Y H:i'),
+        ];
     }
 }
